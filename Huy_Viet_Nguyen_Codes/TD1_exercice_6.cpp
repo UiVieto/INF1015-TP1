@@ -21,15 +21,15 @@ struct Mot
 
 int trouverNombreMotsDictionnaire();
 vector<Mot> creerDictionnaire();
-Mot trouverNomPlusLong(vector<Mot> dictionnaire);
-
+Mot trouverMotPlusLong(vector<Mot> dictionnaire);
+void afficherMot(Mot mot);
 
 int main()
 {
     vector<Mot> dictionnaire = creerDictionnaire();
-    Mot nomPlusLong = trouverNomPlusLong(dictionnaire);
+    Mot motPlusLong = trouverMotPlusLong(dictionnaire);
 
-    cout << nomPlusLong.orthographe << " (" << nomPlusLong.nature << ") : " << nomPlusLong.definition;
+    afficherMot(motPlusLong);
 
     return 0;
 }
@@ -80,18 +80,23 @@ vector<Mot> creerDictionnaire()
     return dictionnaire;
 }
 
-Mot trouverNomPlusLong(vector<Mot> dictionnaire)
+Mot trouverMotPlusLong(vector<Mot> dictionnaire)
 {   
     int nombreMots = trouverNombreMotsDictionnaire();
-    Mot nomPlusLong = dictionnaire[0];
+    Mot motPlusLong = dictionnaire[0];
 
     for (int i = 1; i < nombreMots; i++)
     {
-        if ((nomPlusLong.orthographe).size() > (dictionnaire[i].orthographe).size())
+        if ((motPlusLong.orthographe).size() > (dictionnaire[i].orthographe).size())
             continue;
         else
-            nomPlusLong = dictionnaire[i];
+            motPlusLong = dictionnaire[i];
     }
 
-    return nomPlusLong;
+    return motPlusLong;
+}
+
+void afficherMot(Mot mot)
+{
+    cout << mot.orthographe << " (" << mot.nature << ") : " << mot.definition;
 }
