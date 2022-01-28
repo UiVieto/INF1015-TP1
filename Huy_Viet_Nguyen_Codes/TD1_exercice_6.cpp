@@ -57,7 +57,7 @@ vector<Mot> creerDictionnaire()
 
     vector<Mot> dictionnaire;
 
-    string mot;
+    string orthographe;
     string nature;
     string definition;
 
@@ -65,8 +65,8 @@ vector<Mot> creerDictionnaire()
     {
         Mot nouveauMot;
 
-        std::getline(fichier, mot, '\t');
-        nouveauMot.orthographe = mot;
+        std::getline(fichier, orthographe, '\t');
+        nouveauMot.orthographe = orthographe;
 
         std::getline(fichier, nature, '\t');
         nouveauMot.nature = nature;
