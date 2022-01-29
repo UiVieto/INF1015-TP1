@@ -1,5 +1,6 @@
 /**
-* Programme qui crée un dictionnaire en tant qu'array de strutures à partir d'un fichier texte et qui affiche le mot le plus du dictionnaire.
+* Programme qui crée un dictionnaire en tant qu'array de strutures à partir d'un
+* fichier texte et qui affiche le mot le plus long du dictionnaire.
 * \file   TD1_exercice_6.cpp
 * \author Huy Viet Nguyen et Reda Rhanmouni (Section 5)
 * \date   30 janvier 2022
@@ -14,22 +15,23 @@ using namespace std;
 
 struct Mot 
 {
-    string orthographe;
+    string mot;
     string nature;
     string definition;
 };
 
 int trouverNombreMotsDictionnaire();
 vector<Mot> creerDictionnaire();
-Mot trouverMotPlusLong(vector<Mot> dictionnaire);
-void afficherMot(Mot mot);
+Mot trouverMotPlusLong(vector<Mot>* dictionnaire);
+void afficherMot(Mot* mot);
+
 
 int main()
 {
     vector<Mot> dictionnaire = creerDictionnaire();
-    Mot motPlusLong = trouverMotPlusLong(dictionnaire);
+    Mot motPlusLong = trouverMotPlusLong(&dictionnaire);
 
-    afficherMot(motPlusLong);
+    afficherMot(&motPlusLong);
 
     return 0;
 }
@@ -37,8 +39,7 @@ int main()
 
 int trouverNombreMotsDictionnaire()
 {
-    std::ifstream fichier("dictionnaire.txt");
-    std::string element;
+    ifstream fichier("dictionnaire.txt");
     string ligne;
     int nombreMots = 0;
 
@@ -52,12 +53,12 @@ int trouverNombreMotsDictionnaire()
 
 vector<Mot> creerDictionnaire()
 {
-    std::ifstream fichier("dictionnaire.txt");
-    std::string element;
+    ifstream fichier("dictionnaire.txt");
+    string element;
 
     vector<Mot> dictionnaire;
 
-    string orthographe;
+    string mot;
     string nature;
     string definition;
 
@@ -65,8 +66,8 @@ vector<Mot> creerDictionnaire()
     {
         Mot nouveauMot;
 
-        std::getline(fichier, orthographe, '\t');
-        nouveauMot.orthographe = orthographe;
+        std::getline(fichier, mot, '\t');
+        nouveauMot.mot = mot;
 
         std::getline(fichier, nature, '\t');
         nouveauMot.nature = nature;
@@ -74,29 +75,29 @@ vector<Mot> creerDictionnaire()
         std::getline(fichier, definition, '\n');
         nouveauMot.definition = definition;
 
-        dictionnaire.push_back(nouveauMot);
+        (dictionnaire).push_back(nouveauMot);
     }
 
     return dictionnaire;
 }
 
-Mot trouverMotPlusLong(vector<Mot> dictionnaire)
+Mot trouverMotPlusLong(vector<Mot>* dictionnaire)
 {   
     int nombreMots = trouverNombreMotsDictionnaire();
-    Mot motPlusLong = dictionnaire[0];
+    Mot motPlusLong = (*dictionnaire)[0];
 
     for (int i = 1; i < nombreMots; i++)
     {
-        if ((motPlusLong.orthographe).size() > (dictionnaire[i].orthographe).size())
+        if ((motPlusLong.mot).size() > (((*dictionnaire)[i]).mot).size())
             continue;
         else
-            motPlusLong = dictionnaire[i];
+            motPlusLong = (*dictionnaire)[i];
     }
 
     return motPlusLong;
 }
 
-void afficherMot(Mot mot)
+void afficherMot(Mot* mot)
 {
-    cout << mot.orthographe << " (" << mot.nature << ") : " << mot.definition;
+    cout << (*mot).mot << " (" << (*mot).nature << ") : " << (*mot).definition;
 }
